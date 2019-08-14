@@ -2,7 +2,7 @@ div.Field {
     display: block;
     height: 2em;
     margin: 0px auto;
-    width: 33%;
+    width: 33.333333%;
 }
 div.Field > div {
     height: 100%;
@@ -20,8 +20,9 @@ div.Field input {
     background-color: rgba(0, 0, 0, 0);
     border: none;
     border-bottom: 1px solid black;
-    font-size: 1em;
+    font-size: 0.9em;
     height: 100%;
+    letter-spacing: 0.05em;
     width: 100%;
 }
 div.Field input:focus {

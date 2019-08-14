@@ -1,0 +1,18 @@
+div.Card {
+    height: 2em;
+    width: 25%;
+}
+
+h2.Data {
+    border-bottom: 1px solid black;
+    font-size: 9px;
+    padding-bottom: 4px;
+    text-align: right;
+}
+h6.Title {
+    font-size: 7px;
+    font-style: italic;
+    font-weight: 600;
+    padding-top: 2px;
+    text-align: right;
+}

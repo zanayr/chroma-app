@@ -342,8 +342,8 @@ var chroma;
             h = h / 6;
         }
         if (arr.length === 4)
-            return 'hsla(' + h * 360 + ', ' + s * 100 + '%, ' + l * 100 + '%, ' + arr[3] + ')';
-        return 'hsl(' + h * 360 + ', ' + s * 100 + '%, ' + l * 100 + '%)';
+            return 'hsla(' + Math.round(10 * h * 360) / 10 + ', ' + Math.round(10 * s * 100) / 10 + '%, ' + Math.round(10 * l * 100) / 10 + '%, ' + arr[3] + ')';
+        return 'hsl(' + Math.round(10 * h * 360) / 10 + ', ' + Math.round(10 * s * 100) / 10 + '%, ' + Math.round(10 * l * 100) / 10 + '%)';
     }
     function chromaToHsv (arr) {
         var r = arr[0] / 255,
@@ -372,8 +372,8 @@ var chroma;
             h = h / 6;
         }
         if (arr.length === 4)
-            return 'hsva(' + h * 360 + ', ' + s * 100 + '%, ' + v * 100 + '%, ' + arr[3] + ')';
-        return 'hsv(' + h * 360 + ', ' + s * 100 + '%, ' + v * 100 + '%)';
+            return 'hsva(' + Math.round(10 * h * 360) / 10 + ', ' + Math.round(10 * s * 100) / 10 + '%, ' + Math.round(10 * v * 100) / 10 + '%, ' + arr[3] + ')';
+        return 'hsv(' + Math.round(10 * h * 360) / 10 + ', ' + Math.round(10 * s * 100) / 10 + '%, ' + Math.round(10 * v * 100) / 10 + '%)';
     }
     function chromaToRgb (arr) {
         if (arr.length === 4)
@@ -388,18 +388,17 @@ var chroma;
             if (avg < last) {
                 last = avg;
                 color = key;
-                console.log(avg, color);
             }
         });
-        console.log(color);
+        return color;
     }
 
     //  Chroma
     chroma = function (model) {
         var rx, regex = [
             /^(?:#|0x)([0-9A-F]{1,8})$/i,
-            /^(?:hsla?)\((-?\d+)\s*,\s*(\d{1,3})%\s*,\s*(\d{1,3})%\s*,?\s*(\d\.\d*)?\);*?$/i,
-            /^(?:hsva?)\((-?\d+)\s*,\s*(\d{1,3})%\s*,\s*(\d{1,3})%\s*,?\s*(\d\.\d*)?\);*?$/i,
+            /^(?:hsla?)\((-?\d+\.?\d*)\s*,\s*(\d{1,3})%\s*,\s*(\d{1,3})%\s*,?\s*(\d\.?\d*)?\);*?$/i,
+            /^(?:hsva?)\((-?\d+\.?\d*)\s*,\s*(\d{1,3})%\s*,\s*(\d{1,3})%\s*,?\s*(\d\.?\d*)?\);*?$/i,
             /^(?:rgba?\()?(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,?\s*(\d\.?\d*)?\s*\)?;*?$/i
         ];
         if (typeof model === 'string' && /^[A-Z]+$/i.test(model)) {
@@ -420,7 +419,7 @@ var chroma;
     chroma.validate = function (value) {
         var rx, regex = [
             /^(?:#|0x)([0-9A-F]{1,8})$/i,
-            /^(?:hsla?|hsva?)\((-?\d+)\s*,\s*(\d{1,3})%\s*,\s*(\d{1,3})%\s*,?\s*(\d\.\d*)?\);*?$/i,
+            /^(?:hsla?|hsva?)\((-?\d+\.?\d*)\s*,\s*(\d{1,3})%\s*,\s*(\d{1,3})%\s*,?\s*(\d\.?\d*)?\);*?$/i,
             /^(?:rgba?\()?(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,?\s*(\d\.?\d*)?\s*\)?;*?$/i
         ];
         if (typeof value === 'string' && /^[A-Z]+$/i.test(value)) {
