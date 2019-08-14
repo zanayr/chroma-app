@@ -1,0 +1,32 @@
+div.Field {
+    display: block;
+    height: 2em;
+    margin: 0px auto;
+    width: 33%;
+}
+div.Field > div {
+    height: 100%;
+}
+div.Field label {
+    bottom: -1.3em;
+    font-size: 0.5em;
+    font-style: italic;
+    font-weight: 600;
+    position: absolute;
+    right: 0px;
+    user-select: none;
+}
+div.Field input {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    border-bottom: 1px solid black;
+    font-size: 1em;
+    height: 100%;
+    width: 100%;
+}
+div.Field input:focus {
+    outline: none;
+}
+div.Field input {
+    mix-blend-mode: hue;
+}

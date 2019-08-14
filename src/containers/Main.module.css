@@ -1,8 +1,15 @@
-body {
+main.Main {
     height: 100%;
 }
-
-.Main {
+main.Main > div {
     height: 100%;
+}
+div.TopHalf {
+    height: 50%;
+}
+div.TopHalf > div {
+    bottom: 0px;
+    position: absolute;
+    transform: translateY(50%);
     width: 100%;
 }
