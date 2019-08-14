@@ -1,108 +1,96 @@
 import React, {Component} from 'react';
+import chroma from '../chroma-1.1.0';
 
+import Aside from '../components/Aside/Aside';
 import Color from '../components/Color/Color';
 import Field from '../components/Field/Field';
 import List from '../components/List/List';
 
-import chroma from '../chroma-1.1.0';
-
 import styles from './Main.module.css';
 
-const models = ['hex', 'hsl', 'hsv', 'rgb', 'x11'];
 class Main extends Component {
     state = {
+        color: '#242424',
+        contrast: 0,
         data: {},
-        last: [],
-        model: '',
-        primary: '#ffffff',
-        secondary: '#f0f0f0',
-        text: '#242424',
-        value: '',
+        history: [],
+        value: ''
     };
     componentDidMount () {
 
     }
-    setModel = (value) => {
-        const regex = [
-            /^#|0x/i,
-            /^hsl/i,
-            /^hsv/i,
-            /^rgb/i,
-            /^[A-Z]+$/i
-        ];
-        regex.forEach((rx, i) => {
-            if (rx.test(value)) {
-                this.setState(prev => ({
-                    ...prev,
-                    model: models[i]
-                }));
-            }
-        });
+    depopulate () {
+        this.setState({color: '#242424'});
+        this.setState({data: {}});
     }
-    populate = (value) => {
-        const obj = chroma(value);
-        const data = {
-            hex: obj.to('hex'),
-            hsl: obj.to('hsl'),
-            hsv: obj.to('hsv'),
-            rgb: obj.to('rgb'),
-            x11: obj.to('x11')
-        };
-        this.setState(prev => ({
-            ...prev,
-            data: data
-        }));
+    populate (value) {
+        const color = chroma(value);
+        this.setState({color: color.contrast(this.state.color) < 4.5 ? (this.state.color === '#f8f8f8'? '#242424' : '#f8f8f8') : this.state.color});
+        this.setState({data: {
+            value: value,
+            hex: color.to('hex'),
+            hsl: color.to('hsl'),
+            hsv: color.to('hsv'),
+            rgb: color.to('rgb'),
+            x11: color.to('x11')
+        }});
+    }
+    restore (data) {
+        this.setState({color: chroma(data.value).contrast(this.state.color) < 4.5 ? (this.state.color === '#f8f8f8'? '#242424' : '#f8f8f8') : this.state.color});
+        this.setState({data: data});
+        this.setState({value: data.value});
+    }
+    store (data) {
+        if (!this.state.history.find(h => {return h.value === data.value;}))
+            this.setState({history: this.state.history.length + 1 < 19 ? [data].concat(this.state.history) : [data].concat(this.state.history.slice(0, this.state.history.length - 1))});
+    }
+    update (value) {
+        this.setState({value: value});
+    }
+    //  Events
+    onAdd = () => {
+        if (this.state.data.value)
+            this.store(this.state.data);
     };
-    depopulate = () => {
-        this.setState(prev => ({
-            ...prev,
-            data: {}
-        }));
-    };
-    handle_onChange = (event) => {
-        const value = event.target.value;
-        let color = '';
+    onChange = (value) => {
+        this.update(value);
         if (chroma.validate(value)) {
-            this.setModel(value);
             this.populate(value);
-            color = chroma(value).to('hex');
         } else {
             this.depopulate();
         }
-        this.setState(prev => ({
-            ...prev,
-            value: value,
-            colors: {
-                ...prev.colors,
-                primary: color
-            }
-        }));
-    }
-    handle_onExec () {
-        
-    }
+    };
+    onHistory = (data) => {
+        if (data.value !== this.state.data.value)
+            this.restore(data);
+    };
     render () {
         return (
             <main
                 className={styles.Main}
-                style={{backgroundColor: this.state.data.hex}}>
-                <div style={{color: this.state.text}}>
-                    <div className={styles.TopHalf}>
+                style={{backgroundColor: this.state.data.value}}>
+                <div style={{color: this.state.color}}>
+                    <div className={styles.Top}>
                         <div>
                             <Field
-                                color={this.state.text}
-                                onChange={this.handle_onChange}
-                                onFinish={this.handle_onExec}
+                                color={this.state.color}
+                                onChange={this.onChange}
                                 value={this.state.value}/>
                         </div>
                     </div>
-                    <div className={styles.BottomHalf}>
+                    <div className={styles.Bottom}>
                         <div>
                             <List
                                 data={this.state.data}
-                                model={this.state.model}/>
+                                model={this.state.data.value}/>
                         </div>
                     </div>
+                    <Aside
+                        active={this.state.data.value}
+                        color={this.state.color}
+                        data={this.state.history}
+                        onAdd={this.onAdd}
+                        onHistory={this.onHistory}/>
                     {/* <Color
                         color={this.state.primary}/> */}
                 </div>

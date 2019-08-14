@@ -1,0 +1,12 @@
+div.HistoryButton {
+    border-radius: 16px;
+    display: block;
+    height: 32px;
+    margin-bottom: 8px;
+    width: 32px;
+}
+div.HistoryButton > div {
+    background-color: inherit;
+    border-radius: inherit;
+    height: 100%;
+}

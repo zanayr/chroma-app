@@ -4,12 +4,21 @@ main.Main {
 main.Main > div {
     height: 100%;
 }
-div.TopHalf {
+div.Top {
     height: 50%;
+    padding: 0px 16px;
 }
-div.TopHalf > div {
+div.Top > div {
     bottom: 0px;
+    margin: 0px -16px;
     position: absolute;
     transform: translateY(50%);
     width: 100%;
+}
+div.Bottom {
+    height: 50%;
+    padding: 0px 16px;
+}
+div.Bottom > div {
+    margin: 0px -16px;
 }

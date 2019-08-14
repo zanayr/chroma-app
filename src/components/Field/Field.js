@@ -8,12 +8,13 @@ const field = (props) => {
             <div>
                 <label>model</label>
                 <input
-                    onChange={(event) => props.onChange(event)}
+                    onChange={(e) => props.onChange(e.target.value)}
                     spellCheck={false}
                     style={{
                         borderColor: props.color,
                         color: props.color
-                    }}/>
+                    }}
+                    value={props.value}/>
             </div>
         </div>
     );

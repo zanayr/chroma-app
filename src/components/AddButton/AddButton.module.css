@@ -1,0 +1,22 @@
+div.AddButton {
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 16px;
+    border-style: solid;
+    border-width: 1px;
+    display: block;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+}
+div.AddButton > div {
+    background-color: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+div.AddButton span {
+    background-color: inherit;
+    user-select: none;
+}

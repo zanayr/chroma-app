@@ -1,0 +1,13 @@
+aside.Aside {
+    height: calc(100% - 32px);
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    width: 32px;
+}
+aside.Aside > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+}

@@ -168,6 +168,12 @@ var chroma;
         }
     },
     fn = {
+        array: function (obj) {
+            return [obj.red, obj.green, obj.blue, obj.alpha];
+        },
+        // contrast: function (color1, color2) {
+        //     return getContrast(color1, color2);
+        // },
         hex: function (obj) {
             return chromaToHex([obj.red, obj.green, obj.blue]);
         },
@@ -249,22 +255,48 @@ var chroma;
             return fn(clean);
         return false;
     }
-    function validChromaObject (obj) {
+    function validChromaObject2 (obj) {
         var k, n;
-        if (Object.keys(obj).length !== 4)
+        if (!obj.hasOwnProperty('values'))
             return false;
-        for (k in obj) {
-            n = parseFloat(obj[k]);
-            if (Number.isNaN(n) || !/^alpha|blue|green|red$/i.test(k))
-                return false;
-            if (/^alpha$/.test(k) && (0 > n || n > 1)) {
-                return false;
-            } else if (/^blue|green|red$/i.test(k) && (0 > n || n > 255)) {
-                return false;
+        for (k in obj.values) {
+            if (/^alpha|blue|green|red$/i.test(k)) {
+                n = parseFloat(obj.values[k]);
+                if (Number.isNaN(n))
+                    return false;
+                if (/^alpha$/.test(k) && (0 > n || n > 1)) {
+                    return false;
+                } else if (/^blue|green|red$/i.test(k) && (0 > n || n > 255)) {
+                    return false;
+                }
+                continue;
             }
+            return false;
         }
         return true;
     }
+    // function validChromaObject (obj) {
+    //     var k, n;
+    //     for (k in obj) {;
+    //         n = parseFloat(obj[k]);
+    //         if (/^alpha|blue|green|red$/i.test(k))
+    //             if (Number.isNaN(n))
+    //                 return false;
+    //             if (/^alpha$/.test(k) && (0 > n || n > 1)) {
+    //                 return false;
+    //             } else if (/^blue|green|red$/i.test(k) && (0 > n || n > 255)) {
+    //                 return false;
+    //             }
+    //         // if (Number.isNaN(n) || !/^alpha|blue|green|red$/i.test(k))
+    //         //     return false;
+    //         // if (/^alpha$/.test(k) && (0 > n || n > 1)) {
+    //         //     return false;
+    //         // } else if (/^blue|green|red$/i.test(k) && (0 > n || n > 255)) {
+    //         //     return false;
+    //         // }
+    //     }
+    //     return true;
+    // }
 
     //  CONVERSION
     function convert (clean, fn) {
@@ -288,6 +320,84 @@ var chroma;
     function rgbToChromaObject (arr) {
         var o = {},
             keys = ['red', 'green', 'blue', 'alpha'];
+        Object.defineProperties(o, {
+            alpha: {
+                get: function () {
+                    return this.values.alpha;
+                },
+                set: function (value) {
+                    if (0 <= value && value <= 1)
+                        this.values.alpha = value;
+                    return value;
+                }
+            },
+            average: {
+                get: function () {
+                    return (this.red + this.green + this.blue) / 3
+                }
+            },
+            blue: {
+                get: function () {
+                    return this.values.blue;
+                },
+                set: function (value) {
+                    if (0 <= value && value <= 255)
+                        this.values.blue = value;
+                    return value;
+                }
+            },
+            green: {
+                get: function () {
+                    return this.values.green;
+                },
+                set: function (value) {
+                    if (0 <= value && value <= 255)
+                        this.values.green = value;
+                    return value;
+                }
+            },
+            luminance: {
+                get: function () {
+                    var sR = this.red / 255,
+                        sG = this.green / 255,
+                        sB = this.blue / 255;
+                    return {
+                        r: sR <= 0.03928 ? sR / 12.92 : Math.pow((sR + 0.055) / 1.055, 2.4),
+                        g: sG <= 0.03928 ? sG / 12.92 : Math.pow((sG + 0.055) / 1.055, 2.4),
+                        b: sB <= 0.03928 ? sB / 12.92 : Math.pow((sB + 0.055) / 1.055, 2.4)
+                    };
+                }
+            },
+            red: {
+                get: function () {
+                    return this.values.red;
+                },
+                set: function (value) {
+                    if (0 <= value && value <= 255)
+                        this.values.red = value;
+                    return value;
+                }
+            },
+            values: {
+                value: {}
+            }
+        });
+        o.contrast = function (color) {
+            var c,
+                x = this;
+            if (chroma.validate(color)) {
+                c = chroma(color);
+                if (this.average < c.average) {
+                    x = c;
+                    c = this;
+                }
+                return (0.2126 * x.luminance.r + 0.7152 * x.luminance.g + 0.0722 * x.luminance.b + 0.05) / (0.2126 * c.luminance.r + 0.7152 * c.luminance.g + 0.0722 * c.luminance.b + 0.05);
+            }
+            return null;
+        };
+        o.to = function (model) {
+            return fn[model](o);
+        };
         if (arr === null)
             return null;
         arr.forEach(function (value, i) {
@@ -295,9 +405,6 @@ var chroma;
         });
         if (Object.keys(o).length === 3)
             o.alpha = 1;
-        o.to = function (model) {
-            return fn[model](o);
-        };
         return o;
     }
 
@@ -411,7 +518,7 @@ var chroma;
         } else if (Array.isArray(model)) {
             return rgbToChromaObject(conversion.rgb(model));
         } else {
-            if (validChromaObject(model));
+            if (validChromaObject2(model));
                 return model;
         }
         return null;
@@ -433,7 +540,7 @@ var chroma;
         } else if (Array.isArray(value)) {
             return validation.rgb(value);
         } else {
-            return validChromaObject(value);
+            return validChromaObject2(value);
         }
     };
 }());
