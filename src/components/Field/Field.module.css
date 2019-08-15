@@ -1,7 +1,8 @@
 div.Field {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
     display: block;
-    height: 2em;
-    transform: translateY(50%);
+    height: 1.5em;
     width: 33.333333%;
 }
 div.Field > div {
@@ -9,7 +10,7 @@ div.Field > div {
 }
 div.Field label {
     bottom: -1.3em;
-    font-size: 0.5em;
+    font-size: 7px;
     font-style: italic;
     font-weight: 600;
     position: absolute;
@@ -18,10 +19,9 @@ div.Field label {
     z-index: 1;
 }
 div.Field input {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(255, 255, 255, 0);
     border: none;
-    border-bottom: 1px solid black;
-    font-size: 0.9em;
+    font-size: 0.5em;
     height: 100%;
     letter-spacing: 0.05em;
     width: 100%;
@@ -29,6 +29,17 @@ div.Field input {
 div.Field input:focus {
     outline: none;
 }
-div.Field input {
-    mix-blend-mode: hue;
+
+@media screen and (min-width: 780px) {
+    div.Field {
+        width: 16.666665%;
+    }
+    div.Field label {
+        bottom: -1.3em;
+        font-size: 0.5em;
+    }
+    div.Field input {
+        font-size: 0.9em;
+        letter-spacing: 0.05em;
+    }
 }

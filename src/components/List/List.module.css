@@ -8,3 +8,9 @@ div.List > div {
     flex-direction: row;
     flex-wrap: wrap;
 }
+
+@media screen and (min-width: 780px) {
+    div.List {
+        width: 33.333333%;
+    }
+}

@@ -4,6 +4,7 @@ aside.Aside {
     right: 16px;
     top: 16px;
     width: 32px;
+    z-index: 99;
 }
 aside.Aside > div {
     display: flex;

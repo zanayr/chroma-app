@@ -255,7 +255,7 @@ var chroma;
             return fn(clean);
         return false;
     }
-    function validChromaObject2 (obj) {
+    function validChromaObject (obj) {
         var k, n;
         if (!obj.hasOwnProperty('values'))
             return false;
@@ -275,28 +275,6 @@ var chroma;
         }
         return true;
     }
-    // function validChromaObject (obj) {
-    //     var k, n;
-    //     for (k in obj) {;
-    //         n = parseFloat(obj[k]);
-    //         if (/^alpha|blue|green|red$/i.test(k))
-    //             if (Number.isNaN(n))
-    //                 return false;
-    //             if (/^alpha$/.test(k) && (0 > n || n > 1)) {
-    //                 return false;
-    //             } else if (/^blue|green|red$/i.test(k) && (0 > n || n > 255)) {
-    //                 return false;
-    //             }
-    //         // if (Number.isNaN(n) || !/^alpha|blue|green|red$/i.test(k))
-    //         //     return false;
-    //         // if (/^alpha$/.test(k) && (0 > n || n > 1)) {
-    //         //     return false;
-    //         // } else if (/^blue|green|red$/i.test(k) && (0 > n || n > 255)) {
-    //         //     return false;
-    //         // }
-    //     }
-    //     return true;
-    // }
 
     //  CONVERSION
     function convert (clean, fn) {
@@ -518,7 +496,7 @@ var chroma;
         } else if (Array.isArray(model)) {
             return rgbToChromaObject(conversion.rgb(model));
         } else {
-            if (validChromaObject2(model));
+            if (validChromaObject(model));
                 return model;
         }
         return null;
@@ -540,7 +518,7 @@ var chroma;
         } else if (Array.isArray(value)) {
             return validation.rgb(value);
         } else {
-            return validChromaObject2(value);
+            return validChromaObject(value);
         }
     };
 }());

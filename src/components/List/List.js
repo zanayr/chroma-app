@@ -3,25 +3,6 @@ import React, {Component} from 'react';
 import Card from '../Card/Card';
 
 import styles from './List.module.css';
-
-// setModel = (value) => {
-    //     const regex = [
-    //         /^#|0x/i,
-    //         /^hsl/i,
-    //         /^hsv/i,
-    //         /^rgb/i,
-    //         /^[A-Z]+$/i
-    //     ];
-    //     regex.forEach((rx, i) => {
-    //         if (rx.test(value)) {
-    //             this.setState(prev => ({
-    //                 ...prev,
-    //                 model: models[i]
-    //             }));
-    //         }
-    //     });
-    // }
-
 class List extends Component {
     check () {
         const regex = [/^#|0x/i, /^hsl/i, /^hsv/i, /^rgb/i, /^[A-Z]+$/i];
@@ -37,6 +18,7 @@ class List extends Component {
             return m !== model && m !== 'value';
         }).map(m => {
             return <Card
+                        color={this.props.color}
                         data={this.props.data[m]}
                         key={m}
                         title={m}/>

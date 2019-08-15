@@ -8,18 +8,35 @@ div.Card:nth-child(1), div.Card:nth-child(2) {
 div.Card:nth-child(1), div.Card:nth-child(3) {
     margin-right: 8px;
 }
-
 h2.Data {
     border-bottom-style: solid;
     border-bottom-width: 1px;
-    font-size: 9px;
+    font-size: 8px;
     padding-bottom: 4px;
     text-align: right;
 }
 h6.Title {
-    font-size: 7px;
+    font-size: 6px;
     font-style: italic;
     font-weight: 600;
     padding-top: 2px;
     text-align: right;
+}
+.DarkSelection::selection {
+    background: rgba(248, 248, 248, 0.25);
+}
+.LightSelection::selection {
+    background: rgba(33, 33, 33, 0.15);
+}
+
+@media screen and (min-width: 780px) {
+    div.List {
+        width: 33.333333%;
+    }
+    h2.Data {
+        font-size: 9px;
+    }
+    h6.Title {
+        font-size: 7px;
+    }
 }

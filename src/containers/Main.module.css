@@ -7,6 +7,7 @@ main.Main > div {
 div.Top,
 div.Bottom {
     height: 33.333333%;
+    z-index: 99;
 }
 div.Top > div,
 div.Bottom > div {

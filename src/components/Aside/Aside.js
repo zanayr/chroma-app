@@ -9,6 +9,7 @@ const aside = (props) => {
     const history = props.data.map((value, i) => {
         return <HistoryButton
                     active={props.active}
+                    current={props.current}
                     color={props.color}
                     data={value}
                     key={i}

@@ -7,15 +7,15 @@ import styles from './HistoryButton.module.css';
 
 class HistoryButton extends PureComponent {
     render () {
-        const isActive = this.props.active === this.props.data;
+        const isCurrent = this.props.current === this.props.data;
         return (
             <div
                 className={styles.HistoryButton}
                 onClick={() => this.props.onClick(this.props.data)}
                 style={{
                     backgroundColor: this.props.data,
-                    border: isActive ? '1px solid ' + this.props.color : 'none',
-                    cursor: isActive ? 'default' : 'pointer',
+                    border: isCurrent ? '1px solid ' + this.props.color : 'none',
+                    cursor: isCurrent ? 'default' : 'pointer',
                 }}>
                 <div>
                 </div>
