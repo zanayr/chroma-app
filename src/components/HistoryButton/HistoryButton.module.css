@@ -6,7 +6,16 @@ div.HistoryButton {
     width: 32px;
 }
 div.HistoryButton > div {
+    align-items: center;
     background-color: inherit;
     border-radius: inherit;
+    display: flex;
+    flex-direction: column;
     height: 100%;
+    justify-content: center;
+}
+div.HistoryButton span {
+    padding-left: 1px;
+    padding-bottom: 1px;
+    transform: rotate(45deg);
 }

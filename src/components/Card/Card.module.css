@@ -14,6 +14,7 @@ h2.Data {
     font-size: 8px;
     padding-bottom: 4px;
     text-align: right;
+    user-select: all;
 }
 h6.Title {
     font-size: 6px;
@@ -21,6 +22,7 @@ h6.Title {
     font-weight: 600;
     padding-top: 2px;
     text-align: right;
+    user-select: none;
 }
 .DarkSelection::selection {
     background: rgba(248, 248, 248, 0.25);

@@ -9,6 +9,7 @@ aside.Aside {
 aside.Aside > div {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    flex-wrap: wrap;
     height: 100%;
+    justify-content: flex-end;
 }

@@ -8,12 +8,12 @@ import styles from './Aside.module.css';
 const aside = (props) => {
     const history = props.data.map((value, i) => {
         return <HistoryButton
-                    active={props.active}
                     current={props.current}
                     color={props.color}
                     data={value}
                     key={i}
-                    onClick={props.onHistory}/>
+                    onClick={props.onHistory}
+                    onDelete={props.onDelete}/>
     });
     return (
         <aside className={styles.Aside}>
@@ -21,7 +21,7 @@ const aside = (props) => {
                 {history}
                 <AddButton
                     color={props.color}
-                    onClick={props.onAdd}/>
+                    onClick={props.onAdd}>+</AddButton>
             </div>
         </aside>
     );

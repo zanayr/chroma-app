@@ -6,11 +6,13 @@ class AddButton extends PureComponent {
     render () {
         return (
             <div
-                className={styles.AddButton}
+                className={[styles.AddButton, this.props.className].join(' ')}
                 onClick={(e) => this.props.onClick(e)}
-                style={{borderColor: this.props.color, color: this.props.color}}>
+                style={{
+                    borderColor: this.props.color,
+                    color: this.props.color}}>
                 <div>
-                    <span>+</span>
+                    <span>{this.props.children}</span>
                 </div>
             </div>
         );
