@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Transition from 'react-transition-group/Transition';
 import chroma from '../chroma-1.1.0';
 
-import AddButton from '../components/AddButton/AddButton';
+import IconButton from '../components/IconButton/IconButton';
 import Aside from '../components/Aside/Aside';
 import Aux from '../hoc/Aux/Aux';
 import Display from '../components/Display/Display';
@@ -15,6 +15,7 @@ import styles from './Main.module.css';
 
 class Main extends Component {
     state = {
+        animateRandom: false,
         background: '#f8f8f8',
         color: '#f8f8f8',
         foreground: '#242424',
@@ -96,7 +97,11 @@ class Main extends Component {
     }
     onEntered = (event) => {
         if (event.propertyName === 'left')
-            this.setState({reset: false});
+            this.setState(prev => ({
+                ...prev,
+                animateRandom: false,
+                reset: false
+            }));
     };
     onHistory = (data) => {
         if (data !== this.state.color) {
@@ -107,7 +112,11 @@ class Main extends Component {
     onRandom = () => {
         const color = chroma([Math.round(Math.random() * 255), Math.round(Math.random() * 255), Math.round(Math.random() * 255)]).to('hex');
         this.fill(color);
-        this.setState({value: color});
+        this.setState(prev => ({
+            ...prev,
+            animateRandom: true,
+            value: color
+        }));
     };
     onX11 = (data) => {
         this.fill(data);
@@ -150,10 +159,11 @@ class Main extends Component {
                                 {list}
                             </div>
                         </div>
-                        <AddButton
+                        <IconButton
                             className={styles.Random}
                             color={this.state.foreground}
-                            onClick={this.onRandom}>b</AddButton>
+                            isAnimating={this.state.animateRandom}
+                            onClick={this.onRandom}>b</IconButton>
                         <Aside
                             current={this.state.color}
                             color={this.state.foreground}

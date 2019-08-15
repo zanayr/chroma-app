@@ -22,9 +22,7 @@ const list = (props) => {
             break;
         }
     }
-    console.log(model);
     const cards = models.filter(m => {
-        console.log(m, model, m !== model);
         return m !== model;
     }).map(m => {
         if (m === 'x11') {
