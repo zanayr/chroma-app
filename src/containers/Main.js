@@ -12,6 +12,7 @@ import List from '../components/List/List';
 import Header from '../components/Header/Header';
 
 import styles from './Main.module.css';
+import animations from './Animations.module.css';
 
 class Main extends Component {
     state = {
@@ -160,16 +161,19 @@ class Main extends Component {
                             </div>
                         </div>
                         <IconButton
+                            animation={animations.Rotate}
                             className={styles.Random}
                             color={this.state.foreground}
                             isAnimating={this.state.animateRandom}
                             onClick={this.onRandom}>b</IconButton>
                         <Aside
-                            current={this.state.color}
-                            color={this.state.foreground}
+                            actions={{
+                                add: this.onAdd,
+                                remove: this.onRemove
+                            }}
+                            color={this.state.color}
+                            foreground={this.state.foreground}
                             data={this.state.history}
-                            onAdd={this.onAdd}
-                            onDelete={this.onDelete}
                             onHistory={this.onHistory}/>
                         <Transition
                             in={this.state.reset}

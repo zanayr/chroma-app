@@ -2,13 +2,12 @@ import React, {PureComponent} from 'react';
 
 import styles from './IconButton.module.css';
 import dingbats from '../../dingbats.module.css';
-import animations from './Animations.module.css';
 
 class IconButton extends PureComponent {
     render () {
         let style = [dingbats.Dingbat, styles.Icon];
         if (this.props.isAnimating)
-            style.push(animations.Rotate);
+            style.push(this.props.animation);
         return (
             <div
                 className={[styles.IconButton, this.props.className].join(' ')}

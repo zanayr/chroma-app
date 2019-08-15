@@ -4,16 +4,24 @@ import styles from './AddButton.module.css';
 import dingbats from '../../dingbats.module.css';
 
 class AddButton extends PureComponent {
+    onClick = () => {
+        if (this.props.isRemove)
+            return this.props.onRemove();
+        return this.props.onAdd();
+    };
     render () {
+        const style = [dingbats.Dingbat, styles.Icon];
+        if (this.props.isRemove)
+            style.push(styles.RemoveState);
         return (
             <div
                 className={[styles.AddButton, this.props.className].join(' ')}
-                onClick={(e) => this.props.onClick(e)}
+                onClick={() => this.onClick()}
                 style={{
-                    borderColor: this.props.color,
-                    color: this.props.color}}>
+                    borderColor: this.props.foreground,
+                    color: this.props.foreground}}>
                 <div>
-                    <span className={[dingbats.Dingbat, styles.Icon].join(' ')}>{this.props.children}</span>
+                    <span className={style.join(' ')}>a</span>
                 </div>
             </div>
         );

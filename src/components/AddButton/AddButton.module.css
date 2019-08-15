@@ -18,9 +18,13 @@ div.AddButton > div {
 }
 div.AddButton span {
     background-color: inherit;
+    transition: transform 306.125ms ease-out;
     user-select: none;
 }
 /*  Icons  */
 span.Icon {
     font-size: 17px;
+}
+span.RemoveState {
+    transform: rotate(45deg);
 }
