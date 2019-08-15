@@ -60,10 +60,11 @@ class Main extends Component {
             reset: true
         }));
     }
-    remove (value) {
-        if (this.state.history.find((v) => {return v === value})) {
-            this.setState({history: this.state.history.filter(c => {return c !== value})});
-            this.depopulate();
+    remove () {
+        const color = this.state.color;
+        if (this.state.history.find((v) => {return v === color})) {
+            this.setState({history: this.state.history.filter(c => {return c !== color})});
+            this.empty();
             this.setState({value: ''});
         }
     }
@@ -93,8 +94,8 @@ class Main extends Component {
             this.empty();
         }
     };
-    onDelete = (data) => {
-        this.remove(data);
+    onRemove = () => {
+        this.remove();
     }
     onEntered = (event) => {
         if (event.propertyName === 'left')
