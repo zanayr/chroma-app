@@ -36,7 +36,6 @@ class Main extends Component {
     fill (value) {
         const last = this.state.color;
         const color = this.sanitize(value);
-        console.log(color);
         this.setState(prev => ({
             ...prev,
             background: color,
@@ -110,6 +109,10 @@ class Main extends Component {
         this.fill(color);
         this.setState({value: color});
     };
+    onX11 = (data) => {
+        this.fill(data);
+        this.setState({value: data});
+    };
 
     //  RENDER METHOD  //
     render () {
@@ -119,6 +122,7 @@ class Main extends Component {
         if (this.state.color)
             list = (<List
                     color={this.state.foreground}
+                    onClick={this.onX11}
                     value={this.state.color}/>);
         return (
             <Aux>

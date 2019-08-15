@@ -21,6 +21,9 @@ h6.Title {
     text-align: right;
     user-select: none;
 }
+div.Clickable {
+    cursor: pointer;
+}
 .DarkSelection::selection {
     background: rgba(248, 248, 248, 0.25);
 }

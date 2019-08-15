@@ -10,7 +10,7 @@ const list = (props) => {
     const regex = [/^#/, /^[a-z]+$/, /^hsl/, /^hsv/, /^rgb/];
     const color = chroma(props.value);
     let model;
-    for (let r in regex) {
+    for (let r = 0; r < regex.length; r = r + 1) {
         if (regex[r].test(props.value)) {
             if (r > 1) {
                 model = props.value.includes('a') ? models[r + 1] : models[r];
@@ -22,14 +22,25 @@ const list = (props) => {
             break;
         }
     }
+    console.log(model);
     const cards = models.filter(m => {
+        console.log(m, model, m !== model);
         return m !== model;
     }).map(m => {
-        return <Card
-                    color={props.color}
-                    data={color.to(m)}
-                    key={m}
-                    title={m === 'x11' ? 'nearest x11' : m}/>
+        if (m === 'x11') {
+            return (<Card
+                        color={props.color}
+                        data={color.to(m)}
+                        key={m}
+                        onClick={props.onClick}
+                        title={'nearest x11'}/>);
+        } else {
+            return (<Card
+                        color={props.color}
+                        data={color.to(m)}
+                        key={m}
+                        title={m}/>);
+        }
     });
     return (
         <div className={styles.List}>
