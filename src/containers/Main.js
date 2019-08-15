@@ -4,9 +4,12 @@ import chroma from '../chroma-1.1.0';
 
 import AddButton from '../components/AddButton/AddButton';
 import Aside from '../components/Aside/Aside';
+import Aux from '../hoc/Aux/Aux';
+import Display from '../components/Display/Display';
 import Drop from '../components/Drop/Drop';
 import Field from '../components/Field/Field';
 import List from '../components/List/List';
+import Header from '../components/Header/Header';
 
 import styles from './Main.module.css';
 
@@ -107,54 +110,65 @@ class Main extends Component {
         const x = Math.round((Math.random() * (window.innerWidth - 200)) + 100);
         const y = Math.round((Math.random() * (window.innerHeight - 200)) + 100);
         return (
-            <main
-                className={styles.Main}
-                style={{backgroundColor: this.state.isActive ? this.state.last : this.state.current}}>
-                <div style={{color: this.state.color}}>
-                    <div className={styles.Top}>
-                        <div>
-                            <Field
-                                color={this.state.color}
-                                onChange={this.onChange}
-                                value={this.state.value}/>
+            <Aux>
+                <Header color={this.state.color}/>
+                <main
+                    className={styles.Main}
+                    style={{backgroundColor: this.state.isActive ? this.state.last : this.state.current}}>
+                    <div style={{color: this.state.color}}>
+                        <div className={styles.Third}>
+                            <div>
+                                <Display
+                                    color={this.state.color}
+                                    reset={this.state.reset}
+                                    value={this.state.blurb}/>
+                            </div>
                         </div>
-                    </div>
-                    <div className={styles.Bottom}>
-                        <div>
-                            <List
-                                color={this.state.color}
-                                current={this.state.current}
-                                data={this.state.data}/>
+                        <div className={styles.Third}>
+                            <div>
+                                <Field
+                                    color={this.state.color}
+                                    onChange={this.onChange}
+                                    value={this.state.value}/>
+                            </div>
                         </div>
+                        <div className={styles.Third}>
+                            <div>
+                                <List
+                                    color={this.state.color}
+                                    current={this.state.current}
+                                    data={this.state.data}/>
+                            </div>
+                        </div>
+                        <AddButton
+                            className={styles.Random}
+                            color={this.state.color}
+                            onClick={this.onRandom}>b</AddButton>
+                        <Aside
+                            current={this.state.current}
+                            color={this.state.color}
+                            data={this.state.history}
+                            onAdd={this.onAdd}
+                            onDelete={this.onDelete}
+                            onHistory={this.onHistory}/>
+                        <Transition
+                            in={this.state.isActive}
+                            addEndListener = {node => {
+                                node.addEventListener('transitionend', (e) => this.onEntered(e), false);
+                            }}
+                            mountOnEnter
+                            unmountOnExit
+                            timeout={0}>
+                                {state => (<Drop
+                                    color={this.state.current}
+                                    max={(window.innerWidth < window.innerHeight ? window.innerHeight : window.innerWidth) * 2}
+                                    state={state}
+                                    x={x}
+                                    y={y}/>)}
+                        </Transition>
                     </div>
-                    <AddButton
-                        className={styles.Random}
-                        color={this.state.color}
-                        onClick={this.onRandom}>b</AddButton>
-                    <Aside
-                        current={this.state.current}
-                        color={this.state.color}
-                        data={this.state.history}
-                        onAdd={this.onAdd}
-                        onDelete={this.onDelete}
-                        onHistory={this.onHistory}/>
-                    <Transition
-                        in={this.state.isActive}
-                        addEndListener = {node => {
-                            node.addEventListener('transitionend', (e) => this.onEntered(e), false);
-                        }}
-                        mountOnEnter
-                        unmountOnExit
-                        timeout={0}>
-                            {state => (<Drop
-                                color={this.state.current}
-                                max={(window.innerWidth < window.innerHeight ? window.innerHeight : window.innerWidth) * 2}
-                                state={state}
-                                x={x}
-                                y={y}/>)}
-                    </Transition>
-                </div>
-            </main>
+                </main>
+            </Aux>
         );
     }
 };
