@@ -27,7 +27,7 @@ class List extends Component {
         const regex = [/^#|0x/i, /^hsl/i, /^hsv/i, /^rgb/i, /^[A-Z]+$/i];
         const models = ['hex', 'hsl', 'hsv', 'rgb', 'x11'];
         for (let i in regex)
-            if (regex[i].test(this.props.model))
+            if (regex[i].test(this.props.data.value))
                 return models[i];
         return null;
     }

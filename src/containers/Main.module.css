@@ -4,21 +4,15 @@ main.Main {
 main.Main > div {
     height: 100%;
 }
-div.Top {
-    height: 50%;
-    padding: 0px 16px;
-}
-div.Top > div {
-    bottom: 0px;
-    margin: 0px -16px;
-    position: absolute;
-    transform: translateY(50%);
-    width: 100%;
-}
+div.Top,
 div.Bottom {
-    height: 50%;
-    padding: 0px 16px;
+    height: 33.333333%;
 }
+div.Top > div,
 div.Bottom > div {
-    margin: 0px -16px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
 }

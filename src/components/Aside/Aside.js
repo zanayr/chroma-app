@@ -6,11 +6,11 @@ import HistoryButton from '../HistoryButton/HistoryButton';
 import styles from './Aside.module.css';
 
 const aside = (props) => {
-    const history = props.data.map((color, i) => {
+    const history = props.data.map((value, i) => {
         return <HistoryButton
                     active={props.active}
                     color={props.color}
-                    data={color}
+                    data={value}
                     key={i}
                     onClick={props.onHistory}/>
     });

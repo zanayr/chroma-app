@@ -1,7 +1,7 @@
 div.Field {
     display: block;
     height: 2em;
-    margin: 0px auto;
+    transform: translateY(50%);
     width: 33.333333%;
 }
 div.Field > div {
@@ -15,6 +15,7 @@ div.Field label {
     position: absolute;
     right: 0px;
     user-select: none;
+    z-index: 1;
 }
 div.Field input {
     background-color: rgba(0, 0, 0, 0);

@@ -6,10 +6,7 @@ const Card = (props) => {
     return (
     <div
         className={styles.Card}
-        style={{
-            left: props.left,
-            top: props.top
-        }}>
+        style={{borderColor: props.color}}>
         <div>
             <h2 className={styles.Data}>{props.data}</h2>
             <h6 className={styles.Title}>{props.title}</h6>

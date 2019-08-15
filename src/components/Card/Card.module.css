@@ -1,10 +1,17 @@
 div.Card {
-    height: 2em;
-    width: 25%;
+    height: 64px;
+    width: calc(50% - 4px);
+}
+div.Card:nth-child(1), div.Card:nth-child(2) {
+    margin-bottom: 8px;
+}
+div.Card:nth-child(1), div.Card:nth-child(3) {
+    margin-right: 8px;
 }
 
 h2.Data {
-    border-bottom: 1px solid black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
     font-size: 9px;
     padding-bottom: 4px;
     text-align: right;
