@@ -2,10 +2,7 @@ div.Card {
     height: 64px;
     width: calc(50% - 4px);
 }
-div.Card:nth-child(1), div.Card:nth-child(2) {
-    margin-bottom: 8px;
-}
-div.Card:nth-child(1), div.Card:nth-child(3) {
+div.Card:nth-child(odd) {
     margin-right: 8px;
 }
 h2.Data {

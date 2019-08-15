@@ -1,9 +1,7 @@
 div.List {
-    transform: translateY(50%);
     width: 66.666666%;
 }
 div.List > div {
-    height: 136px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

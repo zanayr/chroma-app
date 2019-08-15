@@ -15,44 +15,53 @@ import styles from './Main.module.css';
 
 class Main extends Component {
     state = {
-        color: '#242424',
-        current: '#f8f8f8',
-        data: {},
-        isActive: false,
+        background: '#f8f8f8',
+        color: '#f8f8f8',
+        foreground: '#242424',
+        isEmpty: true,
         last: '',
         history: [
             'rgb(75, 105, 245)',
             'hsl(45, 100%, 50%)',
             'pink',
         ],
-        value: ''
+        reset: false,
+        value: '#f8f8f8'
     };
 
     //  METHODS  //
-    depopulate () {
-        this.setState({color: '#242424'});
-        this.setState({data: {}});
-        this.setState({isActive: true});
+    sanitize (value) {
+        return value.replace(/;/g, '').replace(/\s/g, ' ').trim();
     }
-    populate (color) {
-        this.setState({color: this.toggle(color.contrast(this.state.color) > 4.5)});
-        this.setState({data: {
-                hex: color.to('hex'),
-                hsl: color.to('hsl'),
-                hsv: color.to('hsv'),
-                rgb: color.to('rgb'),
-                x11: color.to('x11')
-        }});
-        this.setState({isActive: true});
+    fill (value) {
+        const last = this.state.color;
+        const color = this.sanitize(value);
+        console.log(color);
+        this.setState(prev => ({
+            ...prev,
+            background: color,
+            color: color,
+            foreground: this.toggle(chroma(color).contrast(this.state.foreground) > 4.5),
+            isEmpty: false,
+            last: last,
+            reset: true
+        }));
     }
-    prepare (value) {
-        this.setState({last: this.state.current});
-        this.setState({current: value});
+    empty () {
+        const last = this.state.color;
+        this.setState(prev => ({
+            ...prev,
+            background: '#f8f8f8',
+            color: '',
+            foreground: '#242424',
+            isEmpty: true,
+            last: last,
+            reset: true
+        }));
     }
     remove (value) {
         if (this.state.history.find((v) => {return v === value})) {
             this.setState({history: this.state.history.filter(c => {return c !== value})});
-            this.prepare('#f8f8f8');
             this.depopulate();
             this.setState({value: ''});
         }
@@ -62,25 +71,25 @@ class Main extends Component {
             this.setState({history: this.state.history.length + 1 < 10 ? [value].concat(this.state.history) : [value].concat(this.state.history.slice(0, this.state.history.length - 1))});
     }
     toggle (bool) {
-        return bool ? this.state.color : (this.state.color === '#f8f8f8' ? '#242424' : '#f8f8f8');
+        return bool ? this.state.foreground : (this.state.foreground === '#f8f8f8' ? '#242424' : '#f8f8f8');
     }
     update (value) {
         this.setState({value: value});
     }
 
+
+
     //  EVENT HANDLERS  //
     onAdd = () => {
-        if (this.state.current)
-            this.store(this.state.current);
+        if (this.state.color)
+            this.store(this.state.color);
     };
     onChange = (value) => {
         this.update(value);
         if (chroma.validate(value)) {
-            this.prepare(value);
-            this.populate(chroma(value));
-        } else if (this.state.current !== '#f8f8f8') {
-            this.prepare('#f8f8f8');
-            this.depopulate();
+            this.fill(value);
+        } else if (!this.state.isEmpty) {
+            this.empty();
         }
     };
     onDelete = (data) => {
@@ -88,71 +97,68 @@ class Main extends Component {
     }
     onEntered = (event) => {
         if (event.propertyName === 'left')
-            this.setState({isActive: false});
+            this.setState({reset: false});
     };
     onHistory = (data) => {
-        if (data !== this.state.current) {
-            this.prepare(data);
-            this.populate(chroma(data));
+        if (data !== this.state.color) {
+            this.fill(data);
             this.setState({value: data});
         }
     };
     onRandom = () => {
-        const color = chroma([Math.round(Math.random() * 255), Math.round(Math.random() * 255), Math.round(Math.random() * 255)]);
-        const value = color.to('hex');
-        this.prepare(value);
-        this.populate(color);
-        this.setState({value: value});
+        const color = chroma([Math.round(Math.random() * 255), Math.round(Math.random() * 255), Math.round(Math.random() * 255)]).to('hex');
+        this.fill(color);
+        this.setState({value: color});
     };
 
     //  RENDER METHOD  //
     render () {
         const x = Math.round((Math.random() * (window.innerWidth - 200)) + 100);
         const y = Math.round((Math.random() * (window.innerHeight - 200)) + 100);
+        let list = null;
+        if (this.state.color)
+            list = (<List
+                    color={this.state.foreground}
+                    value={this.state.color}/>);
         return (
             <Aux>
-                <Header color={this.state.color}/>
+                <Header color={this.state.foreground}/>
                 <main
                     className={styles.Main}
-                    style={{backgroundColor: this.state.isActive ? this.state.last : this.state.current}}>
-                    <div style={{color: this.state.color}}>
+                    style={{backgroundColor: this.state.reset ? this.state.last : this.state.background}}>
+                    <div style={{color: this.state.foreground}}>
                         <div className={styles.Third}>
                             <div>
                                 <Display
-                                    color={this.state.color}
-                                    reset={this.state.reset}
-                                    value={this.state.blurb}/>
+                                    color={this.state.foreground}/>
                             </div>
                         </div>
                         <div className={styles.Third}>
                             <div>
                                 <Field
-                                    color={this.state.color}
+                                    color={this.state.foreground}
                                     onChange={this.onChange}
                                     value={this.state.value}/>
                             </div>
                         </div>
                         <div className={styles.Third}>
                             <div>
-                                <List
-                                    color={this.state.color}
-                                    current={this.state.current}
-                                    data={this.state.data}/>
+                                {list}
                             </div>
                         </div>
                         <AddButton
                             className={styles.Random}
-                            color={this.state.color}
+                            color={this.state.foreground}
                             onClick={this.onRandom}>b</AddButton>
                         <Aside
-                            current={this.state.current}
-                            color={this.state.color}
+                            current={this.state.color}
+                            color={this.state.foreground}
                             data={this.state.history}
                             onAdd={this.onAdd}
                             onDelete={this.onDelete}
                             onHistory={this.onHistory}/>
                         <Transition
-                            in={this.state.isActive}
+                            in={this.state.reset}
                             addEndListener = {node => {
                                 node.addEventListener('transitionend', (e) => this.onEntered(e), false);
                             }}
@@ -160,7 +166,7 @@ class Main extends Component {
                             unmountOnExit
                             timeout={0}>
                                 {state => (<Drop
-                                    color={this.state.current}
+                                    color={this.state.background}
                                     max={(window.innerWidth < window.innerHeight ? window.innerHeight : window.innerWidth) * 2}
                                     state={state}
                                     x={x}
