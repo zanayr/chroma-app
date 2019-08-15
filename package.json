@@ -1,5 +1,6 @@
 {
   "name": "chroma-app",
+  "homepage": "http://ryanfickenscher.com/2019/Chroma",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -130,7 +130,7 @@ class Main extends Component {
                     <AddButton
                         className={styles.Random}
                         color={this.state.color}
-                        onClick={this.onRandom}>⁂</AddButton>
+                        onClick={this.onRandom}>b</AddButton>
                     <Aside
                         current={this.state.current}
                         color={this.state.color}

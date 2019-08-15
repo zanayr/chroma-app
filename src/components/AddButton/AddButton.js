@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 
 import styles from './AddButton.module.css';
+import dingbats from '../../dingbats.module.css';
 
 class AddButton extends PureComponent {
     render () {
@@ -12,7 +13,7 @@ class AddButton extends PureComponent {
                     borderColor: this.props.color,
                     color: this.props.color}}>
                 <div>
-                    <span>{this.props.children}</span>
+                    <span className={[dingbats.Dingbat, styles.Icon].join(' ')}>{this.props.children}</span>
                 </div>
             </div>
         );

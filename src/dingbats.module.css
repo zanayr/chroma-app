@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'Chroma Dingbats';
+    src: url('./fonts/Chroma_Dingbats.woff2') format('woff2'),
+        url('./fonts/Chroma_Dingbats.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*.Dingbat {
+    font-family: 'Chroma Dingbats';
+}

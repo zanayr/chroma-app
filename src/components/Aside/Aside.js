@@ -21,7 +21,7 @@ const aside = (props) => {
                 {history}
                 <AddButton
                     color={props.color}
-                    onClick={props.onAdd}>+</AddButton>
+                    onClick={props.onAdd}>a</AddButton>
             </div>
         </aside>
     );
