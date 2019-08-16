@@ -25,6 +25,6 @@ div.AddButton span {
 span.Icon {
     font-size: 17px;
 }
-span.RemoveState {
+span.Remove {
     transform: rotate(45deg);
 }

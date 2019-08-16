@@ -28,6 +28,7 @@ class Main extends Component {
             'pink',
         ],
         reset: false,
+        temporary: ['rgb(75, 105, 245)', 'hsl(45, 100%, 50%)', 'pink',],
         value: '#f8f8f8'
     };
 
@@ -62,15 +63,15 @@ class Main extends Component {
     }
     remove () {
         const color = this.state.color;
-        if (this.state.history.find((v) => {return v === color})) {
-            this.setState({history: this.state.history.filter(c => {return c !== color})});
+        if (this.state.temporary.find((v) => {return v === color})) {
+            this.setState({temporary: this.state.temporary.filter(c => {return c !== color})});
             this.empty();
             this.setState({value: ''});
         }
     }
     store (value) {
-        if (!this.state.history.find((v) => {return v === value}))
-            this.setState({history: this.state.history.length + 1 < 10 ? [value].concat(this.state.history) : [value].concat(this.state.history.slice(0, this.state.history.length - 1))});
+        if (!this.state.temporary.find((v) => {return v === value}))
+            this.setState({temporary: this.state.temporary.length + 1 < 10 ? [value].concat(this.state.temporary) : [value].concat(this.state.temporary.slice(0, this.state.temporary.length - 1))});
     }
     toggle (bool) {
         return bool ? this.state.foreground : (this.state.foreground === '#f8f8f8' ? '#242424' : '#f8f8f8');
@@ -105,7 +106,7 @@ class Main extends Component {
                 reset: false
             }));
     };
-    onHistory = (data) => {
+    onRestore = (data) => {
         if (data !== this.state.color) {
             this.fill(data);
             this.setState({value: data});
@@ -180,12 +181,12 @@ class Main extends Component {
                         <Aside
                             actions={{
                                 add: this.onAdd,
-                                remove: this.onRemove
+                                remove: this.onRemove,
+                                restore: this.onRestore
                             }}
                             color={this.state.color}
                             foreground={this.state.foreground}
-                            data={this.state.history}
-                            onHistory={this.onHistory}/>
+                            data={this.state.temporary}/>
                         <Transition
                             in={this.state.reset}
                             addEndListener = {node => {

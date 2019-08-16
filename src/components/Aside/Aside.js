@@ -6,27 +6,30 @@ import HistoryButton from '../HistoryButton/HistoryButton';
 import styles from './Aside.module.css';
 
 const aside = (props) => {
-    let remove = false;
-    const history = props.data.map((value, i) => {
-        if (!remove && props.color === value)
-            remove = true;
+    let state = 0;
+    const onActionClick = () => {
+        if (state)
+            return props.actions.remove();
+        return props.actions.add();
+    }
+    const dots = props.data.map((value, i) => {
+        if (!state && props.color === value)
+            state = 1;
         return <HistoryButton
                     color={props.color}
                     foreground={props.foreground}
                     data={value}
                     key={i}
-                    onClick={props.onHistory}
-                    onDelete={props.onDelete}/>
+                    onClick={props.actions.restore}/>
     });
     return (
         <aside className={styles.Aside}>
             <div>
-                {history}
+                {dots}
                 <AddButton
                     foreground={props.foreground}
-                    isRemove={remove}
-                    onAdd={props.actions.add}
-                    onRemove={props.actions.remove}/>
+                    state={state}
+                    onClick={onActionClick}/>
             </div>
         </aside>
     );
