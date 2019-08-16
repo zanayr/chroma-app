@@ -10,6 +10,7 @@ import Drop from '../components/Drop/Drop';
 import Field from '../components/Field/Field';
 import List from '../components/List/List';
 import Header from '../components/Header/Header';
+import Toolbar from '../components/Toolbar/Toolbar';
 
 import styles from './Main.module.css';
 import animations from './Animations.module.css';
@@ -29,7 +30,8 @@ class Main extends Component {
         ],
         reset: false,
         temporary: ['rgb(75, 105, 245)', 'hsl(45, 100%, 50%)', 'pink',],
-        value: '#f8f8f8'
+        value: '#f8f8f8',
+        toolbar: ['a']
     };
 
     //  METHODS  //
@@ -145,7 +147,52 @@ class Main extends Component {
         return (
             <Aux>
                 <Header color={this.state.foreground}/>
-                <main
+                <main className={styles.Main}>
+                    <div style={{backgroundColor: this.state.reset ? this.state.last : this.state.background}}>
+                        <Toolbar
+                            actions={{
+                                random: this.onRandom,
+                                clear: this.onClear,
+                                redo: this.onRedo,
+                                undo: this.onUndo
+                            }}
+                            data={this.state.toolbar}
+                            state={this.state.reset}/>
+                        <div className={styles.Content}>
+                            <div>
+                                <section>
+                                    <div>
+                                        <Display/>
+                                    </div>
+                                </section>
+                                <section>
+                                    <div>
+                                        <Field
+                                            color={this.state.foreground}
+                                            onChange={this.onChange}
+                                            value={this.state.value}/>
+                                    </div>
+                                </section>
+                                <section>
+                                    <div>
+                                        {list}
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <Aside
+                            actions={{
+                                add: this.onAdd,
+                                remove: this.onRemove,
+                                restore: this.onRestore
+                            }}
+                            color={this.state.color}
+                            foreground={this.state.foreground}
+                            data={this.state.temporary}/>
+                        <Drop/>
+                    </div>
+                </main>
+                {/* <main
                     className={styles.Main}
                     style={{backgroundColor: this.state.reset ? this.state.last : this.state.background}}>
                     <div style={{color: this.state.foreground}}>
@@ -203,7 +250,7 @@ class Main extends Component {
                                     y={y}/>)}
                         </Transition>
                     </div>
-                </main>
+                </main> */}
             </Aux>
         );
     }

@@ -14,7 +14,6 @@ header.Header > div {
     justify-content: space-between;
     padding: 4px 16px 0px 16px;
 }
-
 /*  Logo  */
 header.Header div.Logo {
     display: block;
@@ -25,13 +24,14 @@ header.Header div.Logo h1 {
     font-weight: 600;
     letter-spacing: -0.025em;
 }
-/*  Home Button */
-header.Header div.HomeButton {
+/*  Info Button */
+header.Header div.Info {
     display: block;
 }
-span.Icon {
+header.Header div.Info h6 {
+
     font-size: 17px;
 }
-span.Disabled {
+*.Disabled {
     opacity: 0.25;
 }

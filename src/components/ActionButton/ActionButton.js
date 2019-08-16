@@ -7,7 +7,7 @@ class ActionButton extends PureComponent {
         let style = [styles.ActionButton];
         let alt = null;
         if (this.props.state)
-            alt = this.props.altStyle;
+            alt = styles.Rotate;
         if (this.props.end)
             style.push(styles.End);
         return (
