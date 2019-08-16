@@ -1,4 +1,13 @@
+/*  Fonts  */
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600i&display=swap');
+@font-face {
+  font-family: 'Chroma Dingbats';
+  src: url('./fonts/Chroma_Dingbats.woff2') format('woff2'),
+      url('./fonts/Chroma_Dingbats.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 html, body, main, div, input, label,
 h1, h2, h3, h4, h5, h6, p, a {
@@ -19,4 +28,9 @@ html, body, body > div {
 input, label, h1, h2, h3, h4, h5, h6, p, a {
   font-family: 'Montserrat';
   font-weight: 400;
+}
+
+/*  Iconography  */
+h6 {
+  font-family: 'Chroma Dingbats', 'Webdings', 'Montserrat', 'Arial', sans-serif;
 }

@@ -1,0 +1,22 @@
+div.ActionButton {
+    border-radius: 16px;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    display: block;
+    height: 32px;
+    width: 32px;
+}
+div.ActionButton > div {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+}
+div.ActionButton h6 {
+    display: block;
+    font-size: 17px;
+    transition: transform 306.125ms ease-out;
+    user-select: none;
+}
