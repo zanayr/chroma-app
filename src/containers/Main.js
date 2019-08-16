@@ -21,7 +21,7 @@ class Main extends Component {
         color: '#f8f8f8',
         foreground: '#242424',
         isEmpty: true,
-        last: '',
+        last: '#f8f8f8',
         history: [
             'rgb(75, 105, 245)',
             'hsl(45, 100%, 50%)',
@@ -36,7 +36,7 @@ class Main extends Component {
         return value.replace(/;/g, '').replace(/\s/g, ' ').trim();
     }
     fill (value) {
-        const last = this.state.color;
+        const last = this.state.color || '#f8f8f8';
         const color = this.sanitize(value);
         this.setState(prev => ({
             ...prev,
@@ -120,6 +120,11 @@ class Main extends Component {
             value: color
         }));
     };
+    onUndo = () => {
+        const color = this.state.last;
+        this.fill(color);
+        this.setState({value: color});
+    }
     onX11 = (data) => {
         this.fill(data);
         this.setState({value: data});
@@ -135,6 +140,7 @@ class Main extends Component {
                     color={this.state.foreground}
                     onClick={this.onX11}
                     value={this.state.color}/>);
+        document.documentElement.style.backgroundColor = this.state.color
         return (
             <Aux>
                 <Header color={this.state.foreground}/>
@@ -167,6 +173,10 @@ class Main extends Component {
                             color={this.state.foreground}
                             isAnimating={this.state.animateRandom}
                             onClick={this.onRandom}>b</IconButton>
+                        <IconButton
+                            className={styles.Undo}
+                            color={this.state.foreground}
+                            onClick={this.onUndo}>c</IconButton>
                         <Aside
                             actions={{
                                 add: this.onAdd,

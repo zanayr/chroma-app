@@ -26,3 +26,9 @@ div.Random {
     position: absolute;
     z-index: 99;
 }
+div.Undo {
+    bottom: 16px;
+    left: 72px;
+    position: absolute;
+    z-index: 99;
+}
