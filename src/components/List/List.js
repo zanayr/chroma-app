@@ -27,18 +27,17 @@ const list = (props) => {
     }).map(m => {
         if (m === 'x11') {
             return (<Card
-                        color={props.color}
+                        foreground={props.foreground}
                         data={color.to(m)}
                         key={m}
                         onClick={props.onClick}
                         title={'nearest x11'}/>);
-        } else {
-            return (<Card
-                        color={props.color}
-                        data={color.to(m)}
-                        key={m}
-                        title={m}/>);
         }
+        return (<Card
+                    foreground={props.foreground}
+                    data={color.to(m)}
+                    key={m}
+                    title={m}/>);
     });
     return (
         <div className={styles.List}>

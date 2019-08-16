@@ -6,13 +6,13 @@ const field = (props) => {
     return (
         <div
             className={styles.Field}
-            style={{borderColor: props.color}}>
+            style={{borderColor: props.foreground}}>
             <div>
                 <label>model</label>
                 <input
                     onChange={(e) => props.onChange(e.target.value)}
                     spellCheck={false}
-                    style={{color: props.color}}
+                    style={{color: props.foreground}}
                     value={props.value}/>
             </div>
         </div>

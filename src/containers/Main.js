@@ -140,7 +140,7 @@ class Main extends Component {
         let list = null;
         if (this.state.color)
             list = (<List
-                    color={this.state.foreground}
+                    foreground={this.state.foreground}
                     onClick={this.onX11}
                     value={this.state.color}/>);
         document.documentElement.style.backgroundColor = this.state.color
@@ -160,20 +160,20 @@ class Main extends Component {
                             state={this.state.reset}/>
                         <div className={styles.Content}>
                             <div>
-                                <section>
+                                <section className={styles.Section}>
                                     <div>
-                                        <Display/>
+                                        <Display foreground={this.state.foreground}/>
                                     </div>
                                 </section>
-                                <section>
+                                <section className={styles.Section}>
                                     <div>
                                         <Field
-                                            color={this.state.foreground}
+                                            foreground={this.state.foreground}
                                             onChange={this.onChange}
                                             value={this.state.value}/>
                                     </div>
                                 </section>
-                                <section>
+                                <section className={styles.Section}>
                                     <div>
                                         {list}
                                     </div>

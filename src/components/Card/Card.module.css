@@ -13,7 +13,7 @@ h2.Data {
     text-align: right;
     user-select: all;
 }
-h6.Title {
+p.Title {
     font-size: 6px;
     font-style: italic;
     font-weight: 600;
