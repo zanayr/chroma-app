@@ -1,13 +1,14 @@
 import React from 'react';
 
-import AddButton from '../AddButton/AddButton';
-import HistoryButton from '../HistoryButton/HistoryButton';
+import ActionButton from '../ActionButton/ActionButton';
+import Dot from '../Dot/Dot';
 
 import styles from './Aside.module.css';
 
+
 const aside = (props) => {
     let state = 0;
-    const onActionClick = () => {
+    const onAction= () => {
         if (state)
             return props.actions.remove();
         return props.actions.add();
@@ -15,21 +16,24 @@ const aside = (props) => {
     const dots = props.data.map((value, i) => {
         if (!state && props.color === value)
             state = 1;
-        return <HistoryButton
-                    color={props.color}
+        return <Dot
+                    background={props.color}
+                    color={value}
                     foreground={props.foreground}
-                    data={value}
                     key={i}
-                    onClick={props.actions.restore}/>
+                    onClick={() => props.actions.restore(value)}/>
     });
     return (
         <aside className={styles.Aside}>
             <div>
                 {dots}
-                <AddButton
+                <ActionButton
+                    altStyle={styles.Tilt}
                     foreground={props.foreground}
                     state={state}
-                    onClick={onActionClick}/>
+                    onClick={onAction}>
+                    a
+                </ActionButton>
             </div>
         </aside>
     );

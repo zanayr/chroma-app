@@ -6,7 +6,9 @@ const field = (props) => {
     return (
         <div
             className={styles.Field}
-            style={{borderColor: props.foreground}}>
+            style={{
+                borderColor: props.foreground,
+                color: props.foreground}}>
             <div>
                 <label>model</label>
                 <input

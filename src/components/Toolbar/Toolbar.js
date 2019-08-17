@@ -8,6 +8,7 @@ const toolbar = (props) => {
     const tools = props.data.map(t => {
         return (
             <ActionButton
+                altStyle={styles.Rotate}
                 foreground={props.foreground}
                 onClick={props.actions[dictionary[t]]}
                 state={t === 'b' ? props.state : null}>

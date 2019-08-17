@@ -1,15 +1,13 @@
 aside.Aside {
-    height: calc(100% - 32px);
-    position: absolute;
-    right: 16px;
-    top: 16px;
-    width: 32px;
+    width: 48px;
     z-index: 99;
 }
 aside.Aside > div {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+    flex-wrap: wrap-reverse;
     height: 100%;
     justify-content: flex-end;
+    padding-bottom: 16px;
+    padding-right: 16px;
 }

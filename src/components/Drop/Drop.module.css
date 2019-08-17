@@ -1,5 +1,4 @@
-div.Drop {
-    /* background-color: red; */
+span.Drop {
     border-radius: 50px;
     position: absolute;
     transition: border-radius 612.25ms ease-out, height 612.25ms ease-out, left 612.25ms ease-out, top 612.25ms ease-out, width 612.25ms ease-out;

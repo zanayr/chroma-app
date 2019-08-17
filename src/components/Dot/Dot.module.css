@@ -1,0 +1,8 @@
+span.Dot {
+    border-radius: 16px;
+    cursor: pointer;
+    display: block;
+    height: 32px;
+    margin-bottom: 8px;
+    width: 32px;
+}

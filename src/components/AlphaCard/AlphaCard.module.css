@@ -1,0 +1,45 @@
+div.AlphaCard {
+    left: 0px;
+    height: 320px;
+    position: absolute;
+    top: calc(50% - 160px);
+    width: 48px;
+    z-index: -1;
+}
+div.AlphaCard > div {
+    display: flex;
+    flex-direction: column;
+}
+div.AlphaCard span {
+    display: block;
+    height: 32px;
+    width: 48px;
+}
+/*  Opacities  */
+span.Opacity90 {
+    opacity: 0.9;
+}
+span.Opacity80 {
+    opacity: 0.8;
+}
+span.Opacity70 {
+    opacity: 0.7;
+}
+span.Opacity60 {
+    opacity: 0.6;
+}
+span.Opacity50 {
+    opacity: 0.5;
+}
+span.Opacity40 {
+    opacity: 0.4;
+}
+span.Opacity30 {
+    opacity: 0.3;
+}
+span.Opacity20 {
+    opacity: 0.2;
+}
+span.Opacity10 {
+    opacity: 0.1;
+}

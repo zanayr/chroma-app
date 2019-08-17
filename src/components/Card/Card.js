@@ -7,7 +7,9 @@ const Card = (props) => {
     return (
         <div
             className={styles.Card}
-            style={{borderColor: props.foreground}}>
+            style={{
+                borderColor: props.foreground,
+                color: props.foreground}}>
             <div
                 className={props.onClick ? styles.Clickable : ''}
                 onClick={props.onClick ? () => props.onClick(props.data) : null}>

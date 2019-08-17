@@ -4,9 +4,7 @@ div.Display h2 {
     font-weight: bold;
 }
 /*  Blurb  */
-div.Blurb {
-    margin-top: 8px;
-}
-div.Blurb p {
+div.Display p {
     font-size: 0.7em;
+    margin-top: 8px;
 }

@@ -15,6 +15,7 @@ div.Content > div {
     flex-direction: column;
     height: 100%;
     justify-content: flex-start;
+    z-index: 99;
 }
 section.Section:not(:last-of-type) {
     height: 25%;
