@@ -11,22 +11,18 @@ div.Content {
     flex-grow: 1;
 }
 div.Content > div {
-    display: flex;
-    flex-direction: column;
     height: 100%;
     justify-content: flex-start;
     z-index: 99;
 }
-section.Section:not(:last-of-type) {
+div.Section:not(:last-of-type) {
     height: 25%;
 }
-section.Section:last-of-type {
+div.Section:last-of-type {
     height: 50%;
 }
-section.Section > div {
+div.Section > div {
     align-items: center;
-    display: flex;
-    flex-direction: column;
     height: 100%;
     justify-content: center; 
 }

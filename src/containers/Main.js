@@ -3,6 +3,7 @@ import chroma from '../chroma-1.1.0';
 
 import Aside from '../components/Aside/Aside';
 import Aux from '../hoc/Aux/Aux';
+import Column from '../hoc/Column/Column';
 import Display from '../components/Display/Display';
 import Drop from '../components/Drop/Drop';
 import Field from '../components/Field/Field';
@@ -161,28 +162,20 @@ class Main extends Component {
                                 undo: this.state.last
                             }}
                             foreground={this.state.foreground}/>
-                        <div className={styles.Content}>
-                            <div>
-                                <section className={styles.Section}>
-                                    <div>
-                                        <Display foreground={this.state.foreground}/>
-                                    </div>
-                                </section>
-                                <section className={styles.Section}>
-                                    <div>
-                                        <Field
-                                            foreground={this.state.foreground}
-                                            onChange={this.onChange}
-                                            value={this.state.value}/>
-                                    </div>
-                                </section>
-                                <section className={styles.Section}>
-                                    <div>
-                                        {list}
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
+                        <Column className={styles.Content}>
+                            <Column className={styles.Section}>
+                                <Display foreground={this.state.foreground}/>
+                            </Column>
+                            <Column className={styles.Section}>
+                                <Field
+                                        foreground={this.state.foreground}
+                                        onChange={this.onChange}
+                                        value={this.state.value}/>
+                            </Column>
+                            <Column className={styles.Section}>
+                                {list}
+                            </Column>
+                        </Column>
                         <Aside
                             actions={{
                                 add: this.onAdd,

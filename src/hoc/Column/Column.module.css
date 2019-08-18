@@ -1,0 +1,4 @@
+div.Column > div {
+    display: flex;
+    flex-direction: column;
+}
