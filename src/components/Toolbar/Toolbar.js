@@ -4,22 +4,29 @@ import ActionButton from '../ActionButton/ActionButton';
 import styles from './Toolbar.module.css';
 
 const toolbar = (props) => {
-    const dictionary = {b: 'random', c: 'clear', d: 'undo', e: 'redo'};
-    const tools = props.data.map(t => {
-        return (
-            <ActionButton
-                altStyle={styles.Rotate}
-                foreground={props.foreground}
-                onClick={props.actions[dictionary[t]]}
-                state={t === 'b' ? props.state : null}>
-                {t}
-            </ActionButton>
-        );
-    })
     return (
         <div className={styles.Toolbar}>
             <div>
-                {tools}
+                <ActionButton
+                    foreground={props.foreground}
+                    disabled={!props.state.undo}
+                    onClick={props.actions.undo}>
+                    c
+                </ActionButton>
+                <ActionButton
+                    foreground={props.foreground}
+                    disabled={!props.state.clear}
+                    onClick={props.actions.clear}>
+                    d
+                </ActionButton>
+                <ActionButton
+                    altStyle={styles.Rotate}
+                    disabled={false}
+                    foreground={props.foreground}
+                    onClick={props.actions.random}
+                    state={props.state.random}>
+                    b
+                </ActionButton>
             </div>
         </div>
     );

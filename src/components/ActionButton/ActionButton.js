@@ -6,14 +6,14 @@ class ActionButton extends PureComponent {
     render () {
         let style = [styles.ActionButton];
         let alt = null;
+        if (this.props.disabled)
+            style.push(styles.Disabled);
         if (this.props.state)
             alt = this.props.altStyle;
-        if (this.props.end)
-            style.push(styles.End);
         return (
             <div
                 className={style.join(' ')}
-                onClick={this.props.onClick}
+                onClick={this.props.disabled ? null : this.props.onClick}
                 style={{
                     borderColor: this.props.foreground,
                     color: this.props.foreground

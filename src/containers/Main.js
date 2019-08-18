@@ -20,11 +20,10 @@ class Main extends Component {
         color: '#f8f8f8',
         foreground: '#242424',
         isEmpty: true,
-        last: '#f8f8f8',
+        last: '',
         reset: false,
         saved: ['rgb(75, 105, 245)', 'hsl(45, 100%, 50%)', 'pink'],
         value: '#f8f8f8',
-        toolbar: ['b']
     };
 
     //  METHODS  //
@@ -44,7 +43,7 @@ class Main extends Component {
             reset: true
         }));
     }
-    empty () {
+    clear () {
         const last = this.state.color;
         this.setState(prev => ({
             ...prev,
@@ -60,7 +59,7 @@ class Main extends Component {
         const color = this.state.color;
         if (this.state.saved.find((v) => {return v === color})) {
             this.setState({saved: this.state.saved.filter(c => {return c !== color})});
-            this.empty();
+            this.clear();
             this.setState({value: ''});
         }
     }
@@ -87,19 +86,24 @@ class Main extends Component {
         if (chroma.validate(value)) {
             this.fill(value);
         } else if (!this.state.isEmpty) {
-            this.empty();
+            this.clear();
         }
+    };
+    onClear = () => {
+        this.clear();
+        this.setState({value: ''});
     };
     onRemove = () => {
         this.remove();
-    }
+    };
     onEntered = (event) => {
-        if (event.propertyName === 'left')
+        if (event.propertyName === 'left') {
             this.setState(prev => ({
                 ...prev,
                 animateRandom: false,
                 reset: false
             }));
+        }
     };
     onRestore = (data) => {
         if (data !== this.state.color) {
@@ -120,7 +124,7 @@ class Main extends Component {
         const color = this.state.last;
         this.fill(color);
         this.setState({value: color});
-    }
+    };
     onX11 = (data) => {
         this.fill(data);
         this.setState({value: data});
@@ -130,6 +134,7 @@ class Main extends Component {
 
     //  RENDER METHOD  //
     render () {
+        console.log(!this.state.last, !this.state.color);
         const x = Math.round((Math.random() * (window.innerWidth - 200)) + 100);
         const y = Math.round((Math.random() * (window.innerHeight - 200)) + 100);
         let list = null;
@@ -150,9 +155,12 @@ class Main extends Component {
                                 clear: this.onClear,
                                 undo: this.onUndo
                             }}
-                            data={this.state.toolbar}
-                            foreground={this.state.foreground}
-                            state={this.state.reset}/>
+                            state={{
+                                clear: this.state.color,
+                                random: this.state.animateRandom,
+                                undo: this.state.last
+                            }}
+                            foreground={this.state.foreground}/>
                         <div className={styles.Content}>
                             <div>
                                 <section className={styles.Section}>

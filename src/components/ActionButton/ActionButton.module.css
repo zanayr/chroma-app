@@ -5,6 +5,7 @@ div.ActionButton {
     cursor: pointer;
     display: block;
     height: 32px;
+    transition: opacity 306.125ms ease-out;
     width: 32px;
 }
 div.ActionButton > div {
@@ -19,4 +20,8 @@ div.ActionButton h6 {
     font-size: 17px;
     transition: transform 306.125ms ease-out;
     user-select: none;
+}
+div.Disabled {
+    cursor: default;
+    opacity: 0.5;
 }
