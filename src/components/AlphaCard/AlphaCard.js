@@ -7,6 +7,8 @@ const alphaCard = (props) => {
         <div className={styles.AlphaCard}>
             <div>
                 <span
+                    style={{backgroundColor: props.foreground}}></span>
+                <span
                     className={styles.Opacity90}
                     style={{backgroundColor: props.foreground}}></span>
                 <span

@@ -148,7 +148,6 @@ class Main extends Component {
                             actions={{
                                 random: this.onRandom,
                                 clear: this.onClear,
-                                redo: this.onRedo,
                                 undo: this.onUndo
                             }}
                             data={this.state.toolbar}
