@@ -3,7 +3,7 @@ div.Field {
     border-bottom-width: 1px;
     display: block;
     height: 1.5em;
-    width: 66.666666%;
+    width: 100%;
 }
 div.Field > div {
     height: 100%;

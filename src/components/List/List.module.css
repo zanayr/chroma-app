@@ -1,5 +1,5 @@
 div.List {
-    width: 66.666666%;
+    width: 100%;
 }
 div.List > div {
     display: flex;
