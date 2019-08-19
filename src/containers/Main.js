@@ -37,13 +37,9 @@ class Main extends Component {
                 value: Array.isArray(saved) && saved.length ? saved[0] : '#f8f8f8'
             }));
     }
-
-    sanitize (value) {
-        return value.replace(/;/g, '').replace(/\s/g, ' ').trim();
-    }
     fill (value) {
         const last = this.state.color || '#f8f8f8';
-        const color = this.sanitize(value);
+        const color = chroma(value).to(chroma.parse(value)[0]);
         this.setState(prev => ({
             ...prev,
             background: color,
@@ -157,7 +153,6 @@ class Main extends Component {
     };
 
     render () {
-        console.dir(chroma(this.state.value));
         const x = Math.round((Math.random() * (window.innerWidth - 200)) + 100);
         const y = Math.round((Math.random() * (window.innerHeight - 200)) + 100);
         let list = null;

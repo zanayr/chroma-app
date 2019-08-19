@@ -10,7 +10,7 @@
 
 
 html, body, main, div, input, label,
-h1, h2, h3, h4, h5, h6, p, a {
+h1, h2, h3, h4, h5, h6, p, a, span {
   box-sizing: border-box;
   color: inherit;
   margin: 0px;

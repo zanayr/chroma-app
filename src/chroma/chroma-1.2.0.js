@@ -230,13 +230,13 @@ var chroma;
             }
         }
         if (values[1] === 0) {
-            r = g = b = values[2];
+            r = g = b = values[2] / 100;
         } else {
             r = hue((values[0] % 360) / 360 + 1 / 3, values[1] / 100, values[2] / 100);
             g = hue((values[0] % 360) / 360, values[1] / 100, values[2] / 100);
             b = hue((values[0] % 360) / 360 - 1 / 3, values[1] / 100, values[2] / 100);
         }
-        return [Math.round(r * 25500) / 100, Math.round(g * 25500) / 100, Math.round(b * 25500) / 100];
+        return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
     }
     function fromHsv (values) {
         var r,
@@ -278,7 +278,7 @@ var chroma;
                 g = p;
                 b = q;
         }
-        return [Math.round(r * 25500) / 100, Math.round(g * 25500) / 100, Math.round(b * 25500) / 100];
+        return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
     }
     function toHsl (values) {
         var r = values.red / 255,
