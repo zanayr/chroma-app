@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import chroma from '../chroma-1.1.0';
+import * as database from '../database/database';
 
 import Aside from '../components/Aside/Aside';
 import Aux from '../hoc/Aux/Aux';
@@ -13,13 +14,12 @@ import Toolbar from '../components/Toolbar/Toolbar';
 import AlphaCard from '../components/AlphaCard/AlphaCard';
 
 import styles from './Main.module.css';
-//  ['rgb(75, 105, 245)', 'hsl(45, 100%, 50%)', 'pink']
 class Main extends Component {
     state = {
         animateRandom: false,
         background: '#f8f8f8',
         color: '#f8f8f8',
-        foreground: '#242424',
+        foreground: '#f8f8f8',
         isEmpty: true,
         last: '',
         reset: false,
@@ -28,9 +28,9 @@ class Main extends Component {
     };
 
     componentDidMount () {
-        // const colors = JSON.parse(localStorage.getItem('saved'));
-        // console.log(JSON.parse(localStorage.getItem('saved')));
-        this.setState({saved: JSON.parse(localStorage.getItem('saved'))});
+        const saved = database.get('saved');
+        this.setState({saved: saved});
+        this.fill(saved.length ? saved[0] : '#f8f8f8');
     }
 
     //  METHODS  //
@@ -69,7 +69,7 @@ class Main extends Component {
         if (this.state.saved.find((v) => {return v === color})) {
             updated = saved.filter(v => {return v !== color});
             this.setState({saved: updated});
-            localStorage.setItem('saved', JSON.stringify(updated));
+            database.set('saved', updated);
             this.clear();
             this.setState({value: ''});
         }
@@ -80,10 +80,11 @@ class Main extends Component {
         if (!saved.find((v) => {return v === value})) {
             updated = saved.length + 1 < 10 ? [value].concat(saved) : [value].concat(saved.slice(0, saved.length - 1));
             this.setState({saved: updated});
-            localStorage.setItem('saved', JSON.stringify(updated));
+            database.set('saved', updated);
         }
     }
     toggle (bool) {
+        console.log(bool);
         return bool ? this.state.foreground : (this.state.foreground === '#f8f8f8' ? '#242424' : '#f8f8f8');
     }
     update (value) {
@@ -150,7 +151,6 @@ class Main extends Component {
 
     //  RENDER METHOD  //
     render () {
-        console.log(!this.state.last, !this.state.color);
         const x = Math.round((Math.random() * (window.innerWidth - 200)) + 100);
         const y = Math.round((Math.random() * (window.innerHeight - 200)) + 100);
         let list = null;
@@ -160,7 +160,6 @@ class Main extends Component {
                     onClick={this.onX11}
                     value={this.state.color}/>);
         document.documentElement.style.backgroundColor = chroma(this.state.background).to('rgb');
-        console.log(this.state.saved);
         return (
             <Aux>
                 <Header foreground={this.state.foreground}/>
