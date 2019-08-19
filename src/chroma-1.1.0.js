@@ -151,6 +151,9 @@ var chroma;
                         r = values[2];
                         g = p;
                         b = q;
+                        break;
+                    default:
+                        break;
                 }
                 if (values.length === 4)
                     return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255), values[3]];
@@ -456,6 +459,8 @@ var chroma;
                     break;
                 case b:
                     h = (r - g) / d + 4;
+                    break;
+                default:
                     break;
             }
             h = h / 6;

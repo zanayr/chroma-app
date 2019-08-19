@@ -1,12 +1,12 @@
 div.ActionButton {
-    border-radius: 16px;
+    border-radius: 12px;
     border-style: solid;
     border-width: 1px;
     cursor: pointer;
     display: block;
-    height: 32px;
+    height: 24px;
     transition: opacity 306.125ms ease-out;
-    width: 32px;
+    width: 24px;
 }
 div.ActionButton > div {
     align-items: center;
@@ -17,11 +17,22 @@ div.ActionButton > div {
 }
 div.ActionButton h6 {
     display: block;
-    font-size: 17px;
+    font-size: 13px;
     transition: transform 306.125ms ease-out;
     user-select: none;
 }
 div.Disabled {
     cursor: default;
     opacity: 0.5;
+}
+
+@media screen and (min-height: 569px) {
+    div.ActionButton {
+        border-radius: 16px;
+        height: 32px;
+        width: 32px;
+    }
+    div.ActionButton h6 {
+        font-size: 17px;
+    }
 }

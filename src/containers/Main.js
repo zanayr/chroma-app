@@ -29,8 +29,13 @@ class Main extends Component {
 
     componentDidMount () {
         const saved = database.get('saved');
-        this.setState({saved: saved});
-        this.fill(saved.length ? saved[0] : '#f8f8f8');
+        const color = saved.length ? saved[0] : '#f8f8f8';
+        this.fill(color);
+        this.setState(prev => ({
+            ...prev,
+            saved: saved,
+            value: color
+        }));
     }
 
     //  METHODS  //
@@ -93,7 +98,6 @@ class Main extends Component {
         }
     }
     toggle (bool) {
-        console.log(bool);
         return bool ? this.state.foreground : (this.state.foreground === '#f8f8f8' ? '#242424' : '#f8f8f8');
     }
     update (value) {

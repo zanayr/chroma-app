@@ -1,8 +1,16 @@
 span.Dot {
-    border-radius: 16px;
+    border-radius: 12px;
     cursor: pointer;
     display: block;
-    height: 32px;
+    height: 24px;
     margin-bottom: 8px;
-    width: 32px;
+    width: 24px;
+}
+
+@media screen and (min-height: 569px) {
+    span.Dot {
+        border-radius: 16px;
+        height: 32px;
+        width: 32px;
+    }
 }
