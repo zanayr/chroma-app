@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import chroma from '../chroma/chroma-1.1.0';
+import chroma from '../chroma/chroma-1.2.0';
 import * as database from '../database/database';
 
 import Aside from '../components/Aside/Aside';
@@ -48,7 +48,7 @@ class Main extends Component {
             ...prev,
             background: color,
             color: color,
-            foreground: this.toggle(chroma(color).contrast(this.state.foreground) > 4.5),
+            foreground: this.toggle(chroma.contrast(color, this.state.foreground) > 4.5),
             isEmpty: false,
             last: last,
             reset: true
