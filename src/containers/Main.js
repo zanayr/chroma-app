@@ -30,12 +30,12 @@ class Main extends Component {
 
     componentDidMount () {
         const saved = database.get('saved');
-        this.fill(saved.length ? saved[0] : '#f8f8f8');
-        this.setState(prev => ({
-            ...prev,
-            saved: saved,
-            value: saved.length ? saved[0] : '#f8f8f8'
-        }));
+        this.fill(Array.isArray(saved) && saved.length ? saved[0] : '#f8f8f8');
+            this.setState(prev => ({
+                ...prev,
+                saved: saved ? saved : [],
+                value: Array.isArray(saved) && saved.length ? saved[0] : '#f8f8f8'
+            }));
     }
 
     sanitize (value) {
