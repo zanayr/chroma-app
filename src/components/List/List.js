@@ -1,5 +1,5 @@
 import React from 'react';
-import chroma from '../../chroma-1.1.0';
+import chroma from '../../chroma/chroma-1.1.0';
 
 import Card from '../Card/Card';
 
