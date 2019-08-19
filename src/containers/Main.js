@@ -13,7 +13,7 @@ import Toolbar from '../components/Toolbar/Toolbar';
 import AlphaCard from '../components/AlphaCard/AlphaCard';
 
 import styles from './Main.module.css';
-
+//  ['rgb(75, 105, 245)', 'hsl(45, 100%, 50%)', 'pink']
 class Main extends Component {
     state = {
         animateRandom: false,
@@ -23,9 +23,15 @@ class Main extends Component {
         isEmpty: true,
         last: '',
         reset: false,
-        saved: ['rgb(75, 105, 245)', 'hsl(45, 100%, 50%)', 'pink'],
+        saved: [],
         value: '#f8f8f8',
     };
+
+    componentDidMount () {
+        // const colors = JSON.parse(localStorage.getItem('saved'));
+        // console.log(JSON.parse(localStorage.getItem('saved')));
+        this.setState({saved: JSON.parse(localStorage.getItem('saved'))});
+    }
 
     //  METHODS  //
     sanitize (value) {
@@ -58,15 +64,24 @@ class Main extends Component {
     }
     remove () {
         const color = this.state.color;
+        const saved = this.state.saved;
+        let updated;
         if (this.state.saved.find((v) => {return v === color})) {
-            this.setState({saved: this.state.saved.filter(c => {return c !== color})});
+            updated = saved.filter(v => {return v !== color});
+            this.setState({saved: updated});
+            localStorage.setItem('saved', JSON.stringify(updated));
             this.clear();
             this.setState({value: ''});
         }
     }
     store (value) {
-        if (!this.state.saved.find((v) => {return v === value}))
-            this.setState({saved: this.state.saved.length + 1 < 10 ? [value].concat(this.state.saved) : [value].concat(this.state.saved.slice(0, this.state.saved.length - 1))});
+        const saved = this.state.saved.slice();
+        let updated;
+        if (!saved.find((v) => {return v === value})) {
+            updated = saved.length + 1 < 10 ? [value].concat(saved) : [value].concat(saved.slice(0, saved.length - 1));
+            this.setState({saved: updated});
+            localStorage.setItem('saved', JSON.stringify(updated));
+        }
     }
     toggle (bool) {
         return bool ? this.state.foreground : (this.state.foreground === '#f8f8f8' ? '#242424' : '#f8f8f8');
@@ -145,6 +160,7 @@ class Main extends Component {
                     onClick={this.onX11}
                     value={this.state.color}/>);
         document.documentElement.style.backgroundColor = chroma(this.state.background).to('rgb');
+        console.log(this.state.saved);
         return (
             <Aux>
                 <Header foreground={this.state.foreground}/>
