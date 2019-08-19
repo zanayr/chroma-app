@@ -65,13 +65,22 @@ class Main extends Component {
     remove () {
         const color = this.state.color;
         const saved = this.state.saved;
+        let index;
+        let next;
         let updated;
         if (this.state.saved.find((v) => {return v === color})) {
-            updated = saved.filter(v => {return v !== color});
+            index = saved.indexOf(color);
+            updated = saved.filter((v) => {return v !== color});
+            next = updated[index - 1] ? updated[index - 1] : updated[index];
             this.setState({saved: updated});
             database.set('saved', updated);
-            this.clear();
-            this.setState({value: ''});
+            if (next) {
+                this.fill(next);
+                this.setState({value: next});
+            } else {
+                this.clear();
+                this.setState({value: ''});
+            }
         }
     }
     store (value) {
