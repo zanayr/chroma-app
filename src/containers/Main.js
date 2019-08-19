@@ -157,6 +157,7 @@ class Main extends Component {
     };
 
     render () {
+        console.dir(chroma(this.state.value));
         const x = Math.round((Math.random() * (window.innerWidth - 200)) + 100);
         const y = Math.round((Math.random() * (window.innerHeight - 200)) + 100);
         let list = null;

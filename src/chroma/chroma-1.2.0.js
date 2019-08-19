@@ -139,8 +139,7 @@ var chroma;
     };
     //  Chroma Object Function  //
     function chromaObject (arr) {
-        var obj = {},
-            keys = ['red', 'green', 'blue', 'alpha'];
+        var obj = {};
         //  Getter and Setters  //
         Object.defineProperties(obj, {
             alpha: {
@@ -372,13 +371,13 @@ var chroma;
         for (k in obj)
             if (!/^alpha|blue|green|red$/i.test(k))
                 return false;
-        return this.rgb([obj.red, obj.green, obj.blue, obj.alpha]);
+        return validRgb([obj.red, obj.green, obj.blue, obj.alpha]);
     }
 
     //  CHROMA  FUNCTION  //
     chroma = function (model) {
         var parsed = chroma.parse(model);
-        if (parsed)
+        if (parsed && parsed.length > 1)
             return chromaObject(from[parsed[0]](parsed.slice(1)));
         return null;
     };
@@ -480,7 +479,7 @@ var chroma;
     //  Validate Method  //
     chroma.validate = function (value) {
         var parsed = chroma.parse(value);
-        if (parsed && parsed.length === 1)
+        if (parsed && parsed.length > 1)
             return true;
         return false;
     };
