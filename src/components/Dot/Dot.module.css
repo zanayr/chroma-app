@@ -6,7 +6,6 @@ span.Dot {
     margin-bottom: 8px;
     width: 24px;
 }
-
 @media screen and (min-height: 569px) {
     span.Dot {
         border-radius: 16px;

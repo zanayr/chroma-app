@@ -14,7 +14,6 @@ header.Header > div {
     justify-content: space-between;
     padding: 4px 16px 0px 16px;
 }
-/*  Logo  */
 header.Header div.Logo {
     display: block;
 }
@@ -24,7 +23,6 @@ header.Header div.Logo h1 {
     font-weight: 600;
     letter-spacing: -0.025em;
 }
-/*  Info Button */
 header.Header div.Info {
     display: block;
 }

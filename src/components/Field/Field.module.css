@@ -29,7 +29,6 @@ div.Field input {
 div.Field input:focus {
     outline: none;
 }
-
 @media screen and (min-width: 780px) {
     div.Field {
         width: 33.333333%;

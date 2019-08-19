@@ -15,7 +15,6 @@ div.Toolbar > div {
 div.Toolbar > div > div:not(:last-child) {
     margin-bottom: 8px;
 }
-/*  Roation Animation  */
 @keyframes rotating {
     from {transform: rotate(0deg);}
     to {transform: rotate(360deg);}
