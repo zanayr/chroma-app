@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import chroma from '../chroma/chroma-1.2.0';
+import chroma from '../chroma/chroma-1.0.0';
 import * as database from '../database/database';
 
 import Aside from '../components/Aside/Aside';
