@@ -1,4 +1,3 @@
-var chroma;
 (function () {
     var dictionary = {
         snow: [255, 250, 250], ghostwhite: [248, 248, 255], whitesmoke: [245, 245, 245],
@@ -52,10 +51,15 @@ var chroma;
         silver: [192, 192, 192], teal: [0, 128, 128]
     };
     //  Validation Functions  //
-    function validChroma (obj) {
+    function validChromaChannel (obj) {
         if (typeof obj !== 'object' || obj === null)
             return false;
-        return Object.getPrototypeOf(obj) === Chroma.prototype;
+        return Object.getPrototypeOf(obj) === ChromaChannel.prototype;
+    }
+    function validChromaColor (obj) {
+        if (typeof obj !== 'object' || obj === null)
+            return false;
+        return Object.getPrototypeOf(obj) === ChromaColor.prototype;
     }
     function validHsx (arr) {
         var i;
@@ -159,7 +163,7 @@ var chroma;
                     return validRgb(match) ? true : false;
                 }
             }
-        } else if (validChroma(value)) {
+        } else if (validChromaColor(value) || validChromaChannel(value)) {
             return true;
         }
         return false;
@@ -241,7 +245,7 @@ var chroma;
                     return validRgb(match) ? ['rgba'].concat(match) : null;
                 }
             }
-        } else if (validChroma(model)) {
+        } else if (validChromaColor(model) || validChromaChannel(model)) {
             return ['rgba'].concat(parse([model.red, model.green, model.blue, model.alpha]));
         }
         return null;
@@ -474,8 +478,14 @@ var chroma;
                 return toX11(channels);
         }
     }
-    //  Chroma Object  //
-    function Chroma (red, green, blue, alpha) {
+    function ChromaChannel (alpha, blue, green, red) {
+        this.alpha = typeof alpha === 'number' && Number.isFinite(alpha) ? alpha : 1;
+        this.blue = blue;
+        this.green = green;
+        this.red = red;
+    }
+    //  ChromaColor Object  //
+    function ChromaColor (model, red, green, blue, alpha) {
         Object.defineProperties(this, {
             alpha: {
                 get: function () {
@@ -498,12 +508,7 @@ var chroma;
                 }
             },
             channels: {
-                value: {
-                    alpha: typeof alpha === 'number' && Number.isFinite(alpha) ? alpha : 1,
-                    blue: blue,
-                    green: green,
-                    red: red
-                }
+                value: new ChromaChannel(alpha, blue, green, red)
             },
             green: {
                 get: function () {
@@ -526,6 +531,9 @@ var chroma;
                     return 0.2126 * R + 0.7152 * G + 0.0722 * B + 0.05;
                 }
             },
+            model: {
+                value: model
+            },
             red: {
                 get: function () {
                     return this.channels.red;
@@ -541,6 +549,11 @@ var chroma;
                     if (typeof model === 'string' && /^hexa?|hsla?|hsva?|rgba?|x11$/ig.test(model))
                         return to(model, this.channels);
                     return null;
+                }
+            },
+            toChannels: {
+                value: function () {
+                    return new ChromaChannel(this.channels.alpha, this.channels.blue, this.channels.green, this.channels.red);
                 }
             },
             toHex: {
@@ -573,6 +586,11 @@ var chroma;
                     return to('hsva', this.channels);
                 }
             },
+            toModel: {
+                value: function () {
+                    return to(this.model, this.channels);
+                }
+            },
             toRgb: {
                 value: function () {
                     return to('rgb', this.channels);
@@ -590,16 +608,18 @@ var chroma;
             }
         });
     }
-    //  Chroma Function  //
+    //  ChromaColor Function  //
     chroma = function (model) {
-        var channels;
+        var parsed,
+            channels;
         if (validModel(model)) {
-            channels = from(parseModel(model));
-            return new Chroma(channels[0], channels[1], channels[2], channels[3]);
+            parsed = parseModel(model);
+            channels = from(parsed);
+            return new ChromaColor(parsed[0], channels[0], channels[1], channels[2], channels[3]);
         }
         return null;
     };
-    //  Chroma Methods  //
+    //  ChromaColor Methods  //
     chroma.contrast = function (color1, color2) {
         var c1 = chroma(color1),
             c2 = chroma(color2);
@@ -614,4 +634,3 @@ var chroma;
         return validModel(value);
     };
 }());
-export default chroma;
