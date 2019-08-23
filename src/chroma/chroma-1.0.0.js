@@ -1,3 +1,4 @@
+var chroma;
 (function () {
     var dictionary = {
         snow: [255, 250, 250], ghostwhite: [248, 248, 255], whitesmoke: [245, 245, 245],
@@ -634,3 +635,5 @@
         return validModel(value);
     };
 }());
+
+export default chroma;
