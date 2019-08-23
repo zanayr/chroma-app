@@ -452,8 +452,8 @@ var chroma;
         var scores = {},
             nearest = 'snow';
         Object.keys(dictionary).forEach(function (color) {
-            var channels = dictionary[color];
-            scores[color] = (Math.abs(channels.red - channels[0]) + Math.abs(channels.green - channels[1]) + Math.abs(channels.blue - channels[2])) / 3;
+            var x11 = dictionary[color];
+            scores[color] = (Math.abs(channels.red - x11[0]) + Math.abs(channels.green - x11[1]) + Math.abs(channels.blue - x11[2])) / 3;
         });
         Object.keys(scores).forEach(function(score) {
             if (scores[nearest] > scores[score])
